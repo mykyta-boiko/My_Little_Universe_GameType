@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [Header("Character Components")]
     [SerializeField] private PlayerAnimator _animator;
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private GameObject _axeTool;
+    [SerializeField] private GameObject _crutchTool;
 
     [Space(5)] [Header("Character Settigns")]
     [SerializeField] private float _moveSpeed;
@@ -16,8 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private ResourceController _resourceContorller;
 
-    private List<GameObject> _targetsToAttack;
-
+    private List<ResourceOnIsland> _targetsToAttack = new List<ResourceOnIsland>();
+    private List<ResourceOnIsland> _targetsToRemove = new List<ResourceOnIsland>();
     private void FixedUpdate()
     {
         Movement();
@@ -41,24 +43,66 @@ public class Player : MonoBehaviour
         }
 
     }
-    public void AddTarget(GameObject target)
+
+    private void Attack()
     {
-        _targetsToAttack.Add(target);
-        _animator.StartAttack();
+        foreach (ResourceOnIsland target in _targetsToAttack)
+        {
+            target.TakeHit();
+        }
+        CheckCleanupTargets();
+    }
+    private void CheckCleanupTargets()
+    {
+        for (int i = _targetsToRemove.Count - 1; i >= 0; i--)
+        {
+            _targetsToAttack.Remove(_targetsToRemove[i]);
+            _targetsToRemove.RemoveAt(i); // Safely removing items from a list
+        }
+        if (_targetsToAttack.Count == 0)
+        {
+            _axeTool.SetActive(false);
+            _crutchTool.SetActive(false);
+            _animator.StopAttack();
+        }       
     }
 
-    public void RemoveTarget(GameObject target)
+    private void ChoiceInstrument(IslandTypes resourceType)
     {
-        _targetsToAttack.Remove(target);
-        if(_targetsToAttack.Count == 0)
+        switch (resourceType)
         {
-            _animator.StopAttack();
+            case IslandTypes.Wood:
+                _axeTool.SetActive(true);
+                break;
+            case IslandTypes.Stone:
+                _crutchTool.SetActive(true);
+                break;
+            case IslandTypes.Crystal:
+                _crutchTool.SetActive(true);
+                break;
+            default:
+                break;
         }
+    }
+
+    public void AddTarget(ResourceOnIsland target, IslandTypes resourceType)
+    {
+        ChoiceInstrument(resourceType);
+        if(!_targetsToAttack.Contains(target))
+        {
+            _targetsToAttack.Add(target);
+        }
+        _animator.StartAttack(Attack);
+    }
+
+    public void AddTargetToRemove(ResourceOnIsland target)
+    {
+        _targetsToRemove.Add(target);
     }
 
     public void TakeResourse(IslandTypes resourse)
     {
-
+        _resourceContorller.AddResourse(resourse);
     }
 
     public bool BuildIsland(ResourceType type)

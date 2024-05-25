@@ -3,9 +3,9 @@ namespace ResourceLogic
     public enum ResourceType
     {
         Wood,
-        Board,
+        Lumber,
         Stone,
-        ProcessedStone,
+        Brick,
         Crystal,
         ProcessedCrystal
     }

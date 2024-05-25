@@ -2,16 +2,33 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using ResourceLogic;
+using Data;
+using System;
 
 namespace IslandLogic
 {
+    [Serializable]
+    public class ResourceTypeIntDictionary
+    {
+        [SerializeField] public ResourceType Type;
+        [SerializeField] public int ResourceAmount;
+    }
+
     public class IslandBuilder : MonoBehaviour
     {
-        [SerializeField] private Dictionary<ResourceType, int> _resources;
+        [Header("Components")]
         [SerializeField] private Collider _collider;
         [SerializeField] private GameObject _island;
+        [SerializeField] private SpriteRenderer _buildZone;
+
+        [Space(5)] [Header("Build Settings")]
+        [SerializeField] private List<IslandBuilder> _nextIslandsBuilder;
+        [SerializeField] private List<ResourceTypeIntDictionary> _resources;
+
         private Player _player;
         private const float TAKE_RESOURCE_DELAY = 0.2f;
+        private List<ResourceTypeIntDictionary> _resourceToRemove = new List<ResourceTypeIntDictionary>();
+
 
         private void OnTriggerEnter(Collider other)
         {
@@ -31,19 +48,38 @@ namespace IslandLogic
                 yield return new WaitForSeconds(TAKE_RESOURCE_DELAY);
                 foreach (var resource in _resources)
                 {
-                    if (resource.Value > 0)
+                    if (resource.ResourceAmount > 0)
                     {
-                        _player.BuildIsland(resource.Key);
+                        if(_player.BuildIsland(resource.Type))
+                        {
+                            resource.ResourceAmount--;
+                        }
                     }
                     else
                     {
-                        _resources.Remove(resource.Key);
+                        _resourceToRemove.Add(resource);
+                        break;
                     }
                 }
-                Debug.Log("TAKE RESOURCE IS WORKING");
+                if (_resourceToRemove.Count > 0)
+                {
+                    _resources.Remove(_resourceToRemove[0]);
+                }
+            }
+            DeactivateBuilder();
+            DataController.SaveLastBuiltIslandName(gameObject.name);
+        }
+
+        public void DeactivateBuilder()
+        {
+            foreach (IslandBuilder builder in _nextIslandsBuilder)
+            {
+                builder.gameObject.SetActive(true);
             }
             _island.SetActive(true);
-            gameObject.GetComponent<IslandBuilder>().enabled = false;
+            _collider.enabled = false;
+            _buildZone.enabled = false;
+            StopCoroutine(TakeResourse());
         }
     }
 }

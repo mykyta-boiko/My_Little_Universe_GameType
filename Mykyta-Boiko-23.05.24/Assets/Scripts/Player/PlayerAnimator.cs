@@ -11,8 +11,14 @@ public class PlayerAnimator : MonoBehaviour
 
     private Action _onAttack;
 
-    public void StartAttack()
+    private void AnimationEventAttack()
     {
+        _onAttack?.Invoke();
+    }
+    public void StartAttack(Action actionOnAttack)
+    {
+        if(_onAttack == null || _onAttack.GetInvocationList().Length == 0)
+            _onAttack += actionOnAttack;
         _animator.SetBool(_attackAnimationKey, true);
     }
 

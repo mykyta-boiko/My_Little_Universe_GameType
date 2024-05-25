@@ -3,51 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using IslandLogic;
+using Data;
+using System;
 
 namespace ResourceLogic
 {
     public class ResourceController : MonoBehaviour
     {
-        [Header("Wood Resourse Panels")]
-        [SerializeField] private GameObject _woodPanel;
-        [SerializeField] private GameObject _boardPanel;
-        [SerializeField] TMP_Text _woodAmountText;
-        [SerializeField] TMP_Text _boardAmountText;
+        [SerializeField] private ResourceViewer _resourceView;
 
-        [Space(5)]
-        [Header("Stone Resourse Panels")]
-        [SerializeField] private GameObject _stonePanel;
-        [SerializeField] private GameObject _processedStonePanel;
-        [SerializeField] TMP_Text _stoneAmountText;
-        [SerializeField] TMP_Text _processedStoneAmountText;
+        private int _woodAmount;
+        private int _stoneAmount;
+        private int _crystalAmount;
+        private int _lumberAmount;
+        private int _brickAmount;
 
-        [Space(5)]
-        [Header("Crystal Resourse Panels")]
-        [SerializeField] private GameObject _processedCrystalPanel;
-        [SerializeField] private GameObject _crystalPanel;
-        [SerializeField] TMP_Text _crystalAmountText;
-        [SerializeField] TMP_Text _processedCrystalAmountText;
+        private void Awake()
+        {
+            DataController.GetResourceData(wood: out _woodAmount, stone: out _stoneAmount, 
+                crystal: out _crystalAmount, lumber: out _lumberAmount, brick: out _brickAmount);
 
-        private int _woodAmount = 0;
-        private int _boardAmount = 0;
+            _resourceView.StartGameView(wood: _woodAmount, stone: _stoneAmount, 
+                crystal: _crystalAmount, lumber: _lumberAmount, brick: _brickAmount);
+        }
 
-        private int _stoneAmount = 0;
-        private int _processedStoneAmount = 0;
+        private void OnDestroy()
+        {
+            DataController.SaveResourceData(wood: _woodAmount, stone: _stoneAmount,
+                crystal: _crystalAmount, lumber: _lumberAmount, brick: _brickAmount);
+        }
 
-        private int _crystalAmount = 0;
-        private int _processedCrystalAmount = 0;
 
-        private void ChangeResourseValue(ref int amount, TMP_Text text, bool isIncreased)
+        private void ChangeResourseValue(ref int amount, Action<int> viewUpdate, bool isIncreased)
         {
             amount = isIncreased? amount + 1 : amount - 1;
-            text.text = amount.ToString();
+            viewUpdate?.Invoke(amount);
         }
-        private bool TryWasteResourseValue(ref int amount, TMP_Text text)
+        private bool TryWasteResourseValue(ref int amount, Action<int> viewUpdate)
         {
             if (amount > 0)
             {
                 amount--;
-                text.text = amount.ToString();
+                viewUpdate?.Invoke(amount);
                 return true;
             }
             return false;
@@ -58,13 +55,13 @@ namespace ResourceLogic
             switch (type)
             {
                 case IslandTypes.Wood:
-                    ChangeResourseValue(ref _woodAmount, _woodAmountText, isIncreased: true);
+                    ChangeResourseValue(ref _woodAmount, _resourceView.ChangeWoodView, isIncreased: true);
                     break;
-                case IslandTypes.Rock:
-                    ChangeResourseValue(ref _stoneAmount, _stoneAmountText, isIncreased: true);
+                case IslandTypes.Stone:
+                    ChangeResourseValue(ref _stoneAmount, _resourceView.ChangeStoneView, isIncreased: true);
                     break;
                 case IslandTypes.Crystal:
-                    ChangeResourseValue(ref _crystalAmount, _crystalAmountText, isIncreased: true);
+                    ChangeResourseValue(ref _crystalAmount, _resourceView.ChangeCrystalView, isIncreased: true);
                     break;
                 default:
                     break;
@@ -78,24 +75,24 @@ namespace ResourceLogic
                 case IslandTypes.Wood:
                     if (_woodAmount > 0)
                     {
-                        ChangeResourseValue(ref _woodAmount, _woodAmountText, isIncreased: false);
-                        ChangeResourseValue(ref _boardAmount, _boardAmountText, isIncreased: true);
+                        ChangeResourseValue(ref _woodAmount, _resourceView.ChangeWoodView, isIncreased: false);
+                        ChangeResourseValue(ref _lumberAmount, _resourceView.ChangeLumberView, isIncreased: true);
                     }
                     break;
-                case IslandTypes.Rock:
+                case IslandTypes.Stone:
                     if (_stoneAmount > 0)
                     {
-                        ChangeResourseValue(ref _stoneAmount, _stoneAmountText, isIncreased: false);
-                        ChangeResourseValue(ref _processedStoneAmount, _processedStoneAmountText, isIncreased: true);
+                        ChangeResourseValue(ref _stoneAmount, _resourceView.ChangeStoneView, isIncreased: false);
+                        ChangeResourseValue(ref _brickAmount, _resourceView.ChangeBrickView, isIncreased: true);
                     }
                     break;
-                case IslandTypes.Crystal:
+/*                case IslandTypes.Crystal:
                     if (_crystalAmount > 0)
                     {
-                        ChangeResourseValue(ref _crystalAmount, _crystalAmountText, isIncreased: false);
+                        ChangeResourseValue(ref _crystalAmount, _resourceView.ChangeCrystalView, isIncreased: false);
                         ChangeResourseValue(ref _processedCrystalAmount, _processedCrystalAmountText, isIncreased: true);
                     }
-                    break;
+                    break;*/
                 default:
                     break;
             }
@@ -105,12 +102,11 @@ namespace ResourceLogic
         {
             return type switch
             {
-                ResourceType.Wood => TryWasteResourseValue(ref _woodAmount, _woodAmountText),
-                ResourceType.Board => TryWasteResourseValue(ref _boardAmount, _boardAmountText),
-                ResourceType.Stone => TryWasteResourseValue(ref _stoneAmount, _stoneAmountText),
-                ResourceType.ProcessedStone => TryWasteResourseValue(ref _processedStoneAmount, _processedStoneAmountText),
-                ResourceType.Crystal => TryWasteResourseValue(ref _crystalAmount, _crystalAmountText),
-                ResourceType.ProcessedCrystal => TryWasteResourseValue(ref _processedCrystalAmount, _processedCrystalAmountText),
+                ResourceType.Wood => TryWasteResourseValue(ref _woodAmount, _resourceView.ChangeWoodView),
+                ResourceType.Stone => TryWasteResourseValue(ref _stoneAmount, _resourceView.ChangeStoneView),
+                ResourceType.Crystal => TryWasteResourseValue(ref _crystalAmount, _resourceView.ChangeCrystalView),
+                ResourceType.Lumber => TryWasteResourseValue(ref _lumberAmount, _resourceView.ChangeLumberView),
+                ResourceType.Brick => TryWasteResourseValue(ref _brickAmount, _resourceView.ChangeBrickView),
                 _ => false,
             };
         }

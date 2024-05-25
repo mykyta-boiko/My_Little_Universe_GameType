@@ -4,7 +4,7 @@ namespace IslandLogic
     public enum IslandTypes
     {
         Wood,
-        Rock,
+        Stone,
         Crystal
     }
 }

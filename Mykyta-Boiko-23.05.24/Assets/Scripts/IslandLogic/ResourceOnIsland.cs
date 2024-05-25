@@ -1,15 +1,18 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace IslandLogic
 {
-    public class Island : MonoBehaviour
+    public class ResourceOnIsland : MonoBehaviour
     {
         [SerializeField] private Collider _collider;
         [SerializeField] private IslandTypes _islandType;
-        [SerializeField] private int _startResourseAmount = 3;
         [SerializeField] private float _timeToRemainingResourse = 5f;
+        [SerializeField] private List<GameObject> _partsOfResources;
+        private int _startResourseAmount;
+
         private int _hitToTakeResourse = 2;
         private int _hitCount = 0;
         private int _resourseAmount;
@@ -18,6 +21,7 @@ namespace IslandLogic
 
         private void Start()
         {
+            _startResourseAmount = _partsOfResources.Count;
             _resourseAmount = _startResourseAmount;
         }
 
@@ -27,12 +31,12 @@ namespace IslandLogic
             {
                 _player = other.GetComponent<Player>();
             }
-            _player.AddTarget(gameObject);
+            _player.AddTarget(this, _islandType);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            _player.RemoveTarget(gameObject);
+            _player.AddTargetToRemove(this);
         }
         private IEnumerator RestoreResourse()
         {
@@ -41,6 +45,10 @@ namespace IslandLogic
             _resourseAmount = _startResourseAmount;
             _collider.enabled = true;
             _isHaveResourse = true;
+            foreach(GameObject partOfResourse in _partsOfResources)
+            {
+                partOfResourse.SetActive(true);
+            }
         }
 
         public void TakeHit()
@@ -48,21 +56,21 @@ namespace IslandLogic
             if (_isHaveResourse)
             {
                 _hitCount++;
+                _player.TakeResourse(_islandType);
                 StopCoroutine(RestoreResourse());
                 if (_hitCount % _hitToTakeResourse == 0)
                 {
-                    _player.TakeResourse(_islandType);
+                    _resourseAmount--;
+                    _partsOfResources[_resourseAmount].SetActive(false);
                     if (_resourseAmount == 0)
                     {
                         StartCoroutine(RestoreResourse());
                         _collider.enabled = false;
                         _isHaveResourse = false;
+                        _player.AddTargetToRemove(this);
                     }
                 }
             }
         }
-
-        
-
     }
 }
