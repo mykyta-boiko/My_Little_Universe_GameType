@@ -20,7 +20,8 @@ namespace ObjectPool
                 CrystalHit,
                 SpendResource,
                 TakeLogMessage,
-                FlyingLumber
+                FlyingLumber,
+                FlyingBrick
             }
             public GameObject Prefab;
             public int StartCount;

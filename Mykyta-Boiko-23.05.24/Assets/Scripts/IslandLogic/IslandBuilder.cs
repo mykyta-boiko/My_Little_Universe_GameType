@@ -48,6 +48,8 @@ namespace IslandLogic
         private const float ISLAND_UPSCALE_TIME = 0.2f;
         private const float ISLAND_DOWN_SCALE_TIME = 0.15f;
 
+        public bool IsBult { get; private set; } = false;
+
         private void Start()
         {
             _islandStartScale = _island.transform.localScale;
@@ -84,7 +86,6 @@ namespace IslandLogic
             _resources.Remove(_resourceToRemove[0]);
             for (int i = _resourcePanels.Count - 1; i >= 0; i--)
             {
-                Debug.Log(_resourcePanels[i].TryDeactivate(_resourceToRemove[0].Type));
                 if (_resourcePanels[i].TryDeactivate(_resourceToRemove[0].Type))
                 {
                     _resourcePanels.RemoveAt(i);
@@ -126,7 +127,6 @@ namespace IslandLogic
             }
             if (_playerInBuildZone)
             {
-                DataController.SaveLastBuiltIslandName(gameObject.name);
                 StartCoroutine(BuildIsland());
                 DeactivateBuilder();
             }
@@ -162,6 +162,7 @@ namespace IslandLogic
 
         public void DeactivateBuilder()
         {
+            IsBult = true;
             foreach (IslandBuilder builder in _nextIslandsBuilder)
             {
                 builder.gameObject.SetActive(true);

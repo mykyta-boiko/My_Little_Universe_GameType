@@ -4,6 +4,10 @@ namespace Data
 {
     public static class DataController
     {
+        public static void DeleteData()
+        {
+            PlayerPrefs.DeleteAll();
+        }
         public static void SaveLastBuiltIslandName(string islandName)
         {
             PlayerPrefs.SetString(PlayerPrefsKeyContainer.GetLastBuiltIslandName(), islandName);

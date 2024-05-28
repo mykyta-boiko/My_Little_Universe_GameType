@@ -30,7 +30,7 @@ namespace PlayerLogic
                 _resourceContorller = GameObject.FindGameObjectWithTag(_inventoryTag).GetComponent<InventoryController>();
             }
         }
-        private void OnDestroy()
+        private void OnApplicationQuit()
         {
             DataController.SaveCharacterPosition(transform);
         }

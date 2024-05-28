@@ -34,7 +34,7 @@ namespace Resource
         private int _craftringQueueAmount = 0;
         private bool _playerCanExchange = false;
 
-        private void Awake()
+        private void Start()
         {
             _textPrice.text = _resourceCost.ToString();
             _craftringQueueAmount = DataController.GetCraftingResource(_craftingResource.ToString());
@@ -48,6 +48,7 @@ namespace Resource
                 }
             }
         }
+
         private void OnTriggerEnter(Collider other)
         {
             StartCoroutine(StartEchange());
@@ -94,7 +95,7 @@ namespace Resource
         {
             for (int i = 0; i < _resourceCost; i++)
             {
-                var res = ObjectPooler.Instance.GetObject(_spawnedResources, transform.position);
+                var res = ObjectPooler.Instance.GetObject(_spawnedResources, _player.transform.position);
                 res.GetComponent<ResourceObjectMovement>().InstantiateFromCharacter(_pile.transform);
             }
         }

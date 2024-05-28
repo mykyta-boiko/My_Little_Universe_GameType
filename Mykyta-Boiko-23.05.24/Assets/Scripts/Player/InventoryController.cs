@@ -24,7 +24,7 @@ namespace PlayerLogic
                 crystal: _crystalAmount, lumber: _lumberAmount, brick: _brickAmount);
         }
 
-        private void OnDestroy()
+        private void OnApplicationQuit()
         {
             DataController.SaveResourceData(wood: _woodAmount, stone: _stoneAmount,
                 crystal: _crystalAmount, lumber: _lumberAmount, brick: _brickAmount);

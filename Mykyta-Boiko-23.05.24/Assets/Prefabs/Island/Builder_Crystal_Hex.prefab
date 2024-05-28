@@ -256,7 +256,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &6489949130451510346
+--- !u!1 &3079685735184119585
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,69 +264,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6489949130451510347}
-  - component: {fileID: 6489949130451510390}
-  - component: {fileID: 6489949130451510389}
-  - component: {fileID: 6489949130451510388}
+  - component: {fileID: 6467887341606024621}
+  - component: {fileID: 5592109710344766362}
   m_Layer: 3
-  m_Name: Builder_Crystal_Hex
+  m_Name: Build_Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6489949130451510347
+--- !u!4 &6467887341606024621
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6489949130451510346}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 5.929, y: 0, z: 5.914}
+  m_GameObject: {fileID: 3079685735184119585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3419268421412085820}
-  - {fileID: 340433917429347028}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
---- !u!114 &6489949130451510390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6489949130451510346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f68a38d9cf86a4f87f0de08c2770f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _resourcePanelContainer: {fileID: 7659066649933139843}
-  _resourcePanels:
-  - {fileID: 1008887609376457269}
-  - {fileID: 0}
-  _spendResource: 6
-  _collider: {fileID: 6489949130451510388}
-  _island: {fileID: 2609974728605710982}
-  _buildZone: {fileID: 6489949130451510389}
-  _nextIslandsBuilder:
-  - {fileID: 0}
-  _resources:
-  - Type: 0
-    ResourceAmount: 20
-  - Type: 2
-    ResourceAmount: 20
-  _spawnResources: 0000000001000000
---- !u!212 &6489949130451510389
+  m_Children: []
+  m_Father: {fileID: 6489949130451510347}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &5592109710344766362
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6489949130451510346}
+  m_GameObject: {fileID: 3079685735184119585}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -372,6 +340,70 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6489949130451510346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6489949130451510347}
+  - component: {fileID: 6489949130451510390}
+  - component: {fileID: 6489949130451510388}
+  m_Layer: 3
+  m_Name: Builder_Crystal_Hex
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6489949130451510347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6489949130451510346}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 5.929, y: 0, z: 5.914}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3419268421412085820}
+  - {fileID: 340433917429347028}
+  - {fileID: 6467887341606024621}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
+--- !u!114 &6489949130451510390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6489949130451510346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f68a38d9cf86a4f87f0de08c2770f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourcePanelContainer: {fileID: 7659066649933139843}
+  _resourcePanels:
+  - {fileID: 1008887609376457269}
+  - {fileID: 0}
+  _spendResource: 6
+  _collider: {fileID: 6489949130451510388}
+  _island: {fileID: 2609974728605710982}
+  _buildZone: {fileID: 5592109710344766362}
+  _nextIslandsBuilder:
+  - {fileID: 0}
+  _resources:
+  - Type: 0
+    ResourceAmount: 20
+  - Type: 2
+    ResourceAmount: 20
+  _spawnResources: 0000000001000000
 --- !u!65 &6489949130451510388
 BoxCollider:
   m_ObjectHideFlags: 0

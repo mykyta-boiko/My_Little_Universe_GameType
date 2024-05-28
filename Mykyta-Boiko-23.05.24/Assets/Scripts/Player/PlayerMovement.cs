@@ -36,19 +36,22 @@ namespace PlayerLogic
         private void MoveCharacter()
         {
             Vector3 moveDirection = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical).normalized;
+            float joystickDistance = new Vector2(_joystick.Horizontal, _joystick.Vertical).magnitude;
 
-            if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+            if (joystickDistance > 0)
             {
                 if (_groundChecker.IsGrounded)
                 {
-                    Vector3 movement = moveDirection * _moveSpeed;
-                    movement.y = _velocity.y;
+                    float adjustedSpeed = _moveSpeed * joystickDistance;
+                    Vector3 movement = moveDirection * adjustedSpeed;
+                    movement.y = _velocity.y; 
 
                     _characterController.Move(movement * Time.deltaTime);
 
-                    if (movement.magnitude > 0.1f)
+                    Vector3 horizontalMovement = new Vector3(movement.x, 0, movement.z);
+                    if (horizontalMovement.magnitude > 0.1f)
                     {
-                        _animator.StartMove(movement.magnitude);
+                        _animator.StartMove(horizontalMovement.magnitude);
                     }
                 }
                 else

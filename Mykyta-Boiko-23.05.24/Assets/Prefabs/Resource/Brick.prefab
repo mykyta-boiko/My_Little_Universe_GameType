@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7685178829917890241}
   - component: {fileID: 6703862001767328100}
   - component: {fileID: 8857474020053114286}
-  m_Layer: 0
+  - component: {fileID: 1091781678614679764}
+  m_Layer: 3
   m_Name: Brick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,3 +84,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1091781678614679764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7056276129537850491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df81fde2439dd184f89f8c77ae899bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 9
+  _resourcePushSpeed: 6
+  _pushDistance: 1.6
+  _pushToBuildDistance: 0.6
+  _upPushDistance: 2
+  _speedToCharacter: 15
+  _delayBeforeStartFly: 1
