@@ -924,7 +924,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49325491}
-  m_LocalRotation: {x: 0.415373, y: -0.00000001565181, z: 0.0000000071470683, w: 0.9096512}
+  m_LocalRotation: {x: 0.415373, y: 0.000000015651802, z: -0.000000007147064, w: 0.9096512}
   m_LocalPosition: {x: 0, y: 7.5, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4074,9 +4074,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 894887315}
   _requireResources: {fileID: 1185101040}
-  _cameraTag: MainCamera
 --- !u!1 &489822500
 GameObject:
   m_ObjectHideFlags: 0
@@ -4381,9 +4381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 1474007187}
   _requireResources: {fileID: 612881347}
-  _cameraTag: MainCamera
 --- !u!1001 &536512764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6130,9 +6130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 49582295}
   _requireResources: {fileID: 559944454}
-  _cameraTag: MainCamera
 --- !u!1 &755692194
 GameObject:
   m_ObjectHideFlags: 0
@@ -6181,9 +6181,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 280057421}
   _requireResources: {fileID: 459604656}
-  _cameraTag: MainCamera
 --- !u!1 &768550317
 GameObject:
   m_ObjectHideFlags: 0
@@ -6758,9 +6758,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 973973375}
   _requireResources: {fileID: 955623329}
-  _cameraTag: MainCamera
 --- !u!1 &830732395
 GameObject:
   m_ObjectHideFlags: 0
@@ -6895,9 +6895,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 227504928}
   _requireResources: {fileID: 1654631486}
-  _cameraTag: MainCamera
 --- !u!1 &863183518 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4651687591269647800, guid: c8f386a11483ad64dae30d2b0a657be2, type: 3}
@@ -7733,9 +7733,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 1618885531}
   _requireResources: {fileID: 272480280}
-  _cameraTag: MainCamera
 --- !u!114 &917607624 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7066624427903135267, guid: 9fbf823f3bc428b4189008310ba69295, type: 3}
@@ -8479,7 +8479,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.415373, y: -0.00000001565181, z: 0.0000000071470683, w: 0.9096512}
+  m_LocalRotation: {x: 0.415373, y: 0.000000015651802, z: -0.000000007147064, w: 0.9096512}
   m_LocalPosition: {x: 0, y: 7.5, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9035,9 +9035,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 1735409654}
   _requireResources: {fileID: 355610752}
-  _cameraTag: MainCamera
 --- !u!1001 &1038296302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9838,9 +9838,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 1128290840}
   _requireResources: {fileID: 899799105}
-  _cameraTag: MainCamera
 --- !u!1 &1128290838
 GameObject:
   m_ObjectHideFlags: 0
@@ -10581,9 +10581,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 1516890521}
   _requireResources: {fileID: 1955470526}
-  _cameraTag: MainCamera
 --- !u!1 &1239480282
 GameObject:
   m_ObjectHideFlags: 0
@@ -12601,9 +12601,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 352758731}
   _requireResources: {fileID: 768550319}
-  _cameraTag: MainCamera
 --- !u!1001 &1612847491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12901,9 +12901,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 1421315525}
   _requireResources: {fileID: 312007581}
-  _cameraTag: MainCamera
 --- !u!1 &1631385896
 GameObject:
   m_ObjectHideFlags: 0
@@ -12952,9 +12952,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 770450260}
   _requireResources: {fileID: 489822502}
-  _cameraTag: MainCamera
 --- !u!4 &1635407564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5981577646277353793, guid: df30d29065d5d454aa3e842cad6dab01, type: 3}
@@ -13008,9 +13008,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 795989042}
   _requireResources: {fileID: 1239480284}
-  _cameraTag: MainCamera
 --- !u!1 &1654631484
 GameObject:
   m_ObjectHideFlags: 0
@@ -13487,9 +13487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 293271781}
   _requireResources: {fileID: 229526089}
-  _cameraTag: MainCamera
 --- !u!4 &1751999789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6446120554742984915, guid: cd9d2847d7e4c87488da530bbd58a3e0, type: 3}
@@ -14370,9 +14370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 22324604}
   _requireResources: {fileID: 901974340}
-  _cameraTag: MainCamera
 --- !u!1001 &2057794481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14729,9 +14729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 1163752074}
   _requireResources: {fileID: 612888596}
-  _cameraTag: MainCamera
 --- !u!1 &2113482688
 GameObject:
   m_ObjectHideFlags: 0
@@ -15029,9 +15029,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 7114140801535560669}
   _requireResources: {fileID: 3347169189901809467}
-  _cameraTag: MainCamera
 --- !u!4 &708003054521958314
 Transform:
   m_ObjectHideFlags: 0
@@ -15566,9 +15566,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 8967633213725893124}
   _requireResources: {fileID: 3511232229692481250}
-  _cameraTag: MainCamera
 --- !u!23 &1736797188941240899
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16895,9 +16895,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 2736959355223288202}
   _requireResources: {fileID: 7580310176245044588}
-  _cameraTag: MainCamera
 --- !u!1 &5733494861229233962
 GameObject:
   m_ObjectHideFlags: 0
@@ -17280,9 +17280,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194228}
+  _cameraTag: MainCamera
   _spendedResource: {fileID: 3954075621729172630}
   _requireResources: {fileID: 8797424724778647664}
-  _cameraTag: MainCamera
 --- !u!1001 &6792506594531993063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17526,6 +17526,10 @@ PrefabInstance:
       propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 963194228}
+    - target: {fileID: 6051369200977642982, guid: 9fbf823f3bc428b4189008310ba69295, type: 3}
+      propertyPath: m_Name
+      value: Spend_Containerr
+      objectReference: {fileID: 0}
     - target: {fileID: 7066624427903135262, guid: 9fbf823f3bc428b4189008310ba69295, type: 3}
       propertyPath: m_RootOrder
       value: 4

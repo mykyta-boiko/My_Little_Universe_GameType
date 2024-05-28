@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 5434961016442842596}
   - component: {fileID: 6121747174263362393}
   - component: {fileID: 2412011492111394097}
-  - component: {fileID: 8079634455946733183}
+  - component: {fileID: 4047771511114888709}
   m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6121747174263362393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +329,7 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &8079634455946733183
+--- !u!114 &4047771511114888709
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -338,10 +338,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8700469233281166097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a263e798f37ae4da758b82d89b084c, type: 3}
+  m_Script: {fileID: 11500000, guid: bafbda75b78b3634098c85d9256a24e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 0}
-  _spendedResource: {fileID: 0}
-  _requireResources: {fileID: 0}
   _cameraTag: MainCamera
