@@ -1,24 +1,35 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
-using ResourceLogic;
 
 namespace ObjectPool
 {
     public class ObjectPooler : MonoBehaviour
     {
-
         public static ObjectPooler Instance;
         [Serializable]
         public struct ObjectInfo
         {
-            public ResourceType Type;
+            public enum ObjectTypes
+            {
+                FlyingLog,
+                FlyingStone,
+                FlyingCrystal,
+                TreesHit,
+                RockHit,
+                CrystalHit,
+                SpendResource,
+                TakeLogMessage,
+                FlyingLumber
+            }
             public GameObject Prefab;
             public int StartCount;
+            public ObjectTypes ObjectType;
+            public Canvas ParentCanvas;
         }
 
         [SerializeField] private List<ObjectInfo> _objectsInfo;
-        private Dictionary<ResourceType, Pool> _objectPools;
+        private Dictionary<ObjectInfo.ObjectTypes, Pool> _objectPools;
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -27,32 +38,35 @@ namespace ObjectPool
         }
         private void InitPool()
         {
-            _objectPools = new Dictionary<ResourceType, Pool>();
-            var emptyGO = new GameObject();
+            _objectPools = new Dictionary<ObjectInfo.ObjectTypes, Pool>();
+            var emptyGameObject = new GameObject();
 
-            foreach (var obj in _objectsInfo)
+            foreach (var objectInfo in _objectsInfo)
             {
-                var container = Instantiate(emptyGO, transform, false);
-                container.name = obj.Type.ToString();
+                Transform parent = objectInfo.ParentCanvas != null ? objectInfo.ParentCanvas.transform : transform;
+                var container = Instantiate(emptyGameObject, parent, false);
+                container.name = objectInfo.ObjectType.ToString();
 
-                _objectPools[obj.Type] = new Pool(container.transform);
+                _objectPools[objectInfo.ObjectType] = new Pool(container.transform);
 
-                for (int i = 0; i < obj.StartCount; i++)
+                for (int i = 0; i < objectInfo.StartCount; i++)
                 {
-                    var go = InstantiateObject(obj.Type, container.transform);
-                    _objectPools[obj.Type].Objects.Enqueue(go);
+                    var gameObject = InstantiateObject(objectInfo.ObjectType, container.transform);
+                    _objectPools[objectInfo.ObjectType].Objects.Enqueue(gameObject);
                 }
             }
-            Destroy(emptyGO);
+            Destroy(emptyGameObject);
         }
-        private GameObject InstantiateObject(ResourceType type, Transform parent)
+        private GameObject InstantiateObject(ObjectInfo.ObjectTypes type, Transform parent)
         {
-            var go = Instantiate(_objectsInfo.Find(x => x.Type == type).Prefab, parent);
-            go.SetActive(false);
-            return go;
+            var objectInfo = _objectsInfo.Find(x => x.ObjectType == type);
+            Transform finalParent = objectInfo.ParentCanvas != null ? objectInfo.ParentCanvas.transform : parent;
+            var gameobject = Instantiate(_objectsInfo.Find(x => x.ObjectType == type).Prefab, parent);
+            gameobject.SetActive(false);
+            return gameobject;
         }
 
-        public GameObject GetAndSetEffectObject(ResourceType type, Vector3 position, Quaternion rotation)
+        public GameObject GetObject(ObjectInfo.ObjectTypes type, Vector3 position, Quaternion rotation)
         {
             var obj = _objectPools[type].Objects.Count > 0 ?
                 _objectPools[type].Objects.Dequeue() : InstantiateObject(type, _objectPools[type].Container);
@@ -61,7 +75,7 @@ namespace ObjectPool
             obj.SetActive(true);
             return obj;
         }
-        public GameObject GetEffectObject(ResourceType type, Vector3 position)
+        public GameObject GetObject(ObjectInfo.ObjectTypes type, Vector3 position)
         {
             var obj = _objectPools[type].Objects.Count > 0 ?
                 _objectPools[type].Objects.Dequeue() : InstantiateObject(type, _objectPools[type].Container);
@@ -69,7 +83,7 @@ namespace ObjectPool
             obj.SetActive(true);
             return obj;
         }
-        public void DestroyEffectObject(GameObject obj)
+        public void DestroyObject(GameObject obj)
         {
             _objectPools[obj.GetComponent<IPooled>().Type].Objects.Enqueue(obj);
             obj.SetActive(false);

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 namespace Data
 {
@@ -9,6 +7,24 @@ namespace Data
         public static void SaveLastBuiltIslandName(string islandName)
         {
             PlayerPrefs.SetString(PlayerPrefsKeyContainer.GetLastBuiltIslandName(), islandName);
+        }
+
+        public static void SaveCharacterPosition(Transform characterPosition)
+        {
+            PlayerPrefs.SetFloat(PlayerPrefsKeyContainer.GetCharacterPositionX(), characterPosition.position.x);
+            PlayerPrefs.SetFloat(PlayerPrefsKeyContainer.GetCharacterPositionY(), characterPosition.position.y);
+            PlayerPrefs.SetFloat(PlayerPrefsKeyContainer.GetCharacterPositionZ(), characterPosition.position.z);
+        }
+        public static Vector3 GetCharacterPosition()
+        {
+            if (PlayerPrefs.HasKey(PlayerPrefsKeyContainer.GetCharacterPositionX()))
+            {
+                float positionX = PlayerPrefs.GetFloat(PlayerPrefsKeyContainer.GetCharacterPositionX());
+                float positionY = PlayerPrefs.GetFloat(PlayerPrefsKeyContainer.GetCharacterPositionY());
+                float positionZ = PlayerPrefs.GetFloat(PlayerPrefsKeyContainer.GetCharacterPositionZ());
+                return new Vector3(positionX, positionY, positionZ);
+            }
+            return new Vector3(0, 0, 0);
         }
 
         public static string GetLastBuiltIslandName()
@@ -44,6 +60,22 @@ namespace Data
 
             brick = PlayerPrefs.HasKey(PlayerPrefsKeyContainer.GetStoneKey()) ?
                 PlayerPrefs.GetInt(PlayerPrefsKeyContainer.GetBrickKey()) : 0;
+        }
+
+        public static void SaveCraftingResource(string resourceType, int resourceAmount)
+        {
+            string saveKey = PlayerPrefsKeyContainer.GetCraftingResourceKey() + resourceType.ToString();
+            PlayerPrefs.SetInt(saveKey, resourceAmount);
+        }
+
+        public static int GetCraftingResource(string resourceType)
+        {
+            string saveKey = PlayerPrefsKeyContainer.GetCraftingResourceKey() + resourceType.ToString();
+            if(PlayerPrefs.HasKey(saveKey))
+            {
+                return PlayerPrefs.GetInt(saveKey);
+            }
+            return 0;
         }
     }
 }

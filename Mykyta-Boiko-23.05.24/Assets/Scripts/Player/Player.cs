@@ -1,112 +1,109 @@
-using IslandLogic;
-using UnityEngine;
-using ResourceLogic;
 using System.Collections.Generic;
+using UnityEngine;
+using Resource;
+using Data;
 
-public class Player : MonoBehaviour
+namespace PlayerLogic
 {
-    [Header("Character Components")]
-    [SerializeField] private PlayerAnimator _animator;
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private GameObject _axeTool;
-    [SerializeField] private GameObject _crutchTool;
-
-    [Space(5)] [Header("Character Settigns")]
-    [SerializeField] private float _moveSpeed;
-
-    [Space(5)] [Header("Level Components")]
-    [SerializeField] private FloatingJoystick _joystick;
-    [SerializeField] private ResourceController _resourceContorller;
-
-    private List<ResourceOnIsland> _targetsToAttack = new List<ResourceOnIsland>();
-    private List<ResourceOnIsland> _targetsToRemove = new List<ResourceOnIsland>();
-    private void FixedUpdate()
+    public class Player : MonoBehaviour
     {
-        Movement();
-    }
+        [Header("Components")]
+        [SerializeField] private InventoryController _resourceContorller;
+        [SerializeField] private PlayerAnimator _animator;
+        [SerializeField] private GameObject _axeTool;
+        [SerializeField] private GameObject _crutchTool;
 
-    private void Movement()
-    {
-        float pointX = _joystick.Horizontal * _moveSpeed;
-        float pointY = _rigidbody.velocity.y;
-        float pointZ = _joystick.Vertical * _moveSpeed;
-        _rigidbody.velocity = new Vector3(pointX, pointY, pointZ);
+        [Space(5)]
+        [Header("Settigns")]
+        [SerializeField] private string _inventoryTag = "Inventory";
+        [SerializeField] private float _moveSpeed;
 
-        if(_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+
+        private List<ResourceDeposits> _activeTargets = new List<ResourceDeposits>();
+        private List<ResourceDeposits> _unactiveTargets = new List<ResourceDeposits>();
+
+        private void Start()
         {
-            transform.rotation = Quaternion.LookRotation(_rigidbody.velocity);
-            _animator.StartMove(_rigidbody.velocity.magnitude);
+            transform.position = DataController.GetCharacterPosition();
+            if (_resourceContorller == null)
+            {
+                _resourceContorller = GameObject.FindGameObjectWithTag(_inventoryTag).GetComponent<InventoryController>();
+            }
         }
-        else
+        private void OnDestroy()
         {
-            _animator.StopMove();
+            DataController.SaveCharacterPosition(transform);
         }
 
-    }
-
-    private void Attack()
-    {
-        foreach (ResourceOnIsland target in _targetsToAttack)
+        private void Attack()
         {
-            target.TakeHit();
+            foreach (ResourceDeposits target in _activeTargets)
+            {
+                target.TakeHit();
+            }
+            CleanupUnactiveTargets();
         }
-        CheckCleanupTargets();
-    }
-    private void CheckCleanupTargets()
-    {
-        for (int i = _targetsToRemove.Count - 1; i >= 0; i--)
+
+        private void PickInstrument(ResourceType resourceType)
         {
-            _targetsToAttack.Remove(_targetsToRemove[i]);
-            _targetsToRemove.RemoveAt(i); // Safely removing items from a list
+            switch (resourceType)
+            {
+                case ResourceType.Wood:
+                    _axeTool.SetActive(true);
+                    break;
+                case ResourceType.Stone:
+                    _crutchTool.SetActive(true);
+                    break;
+                case ResourceType.Crystal:
+                    _crutchTool.SetActive(true);
+                    break;
+                default:
+                    break;
+            }
         }
-        if (_targetsToAttack.Count == 0)
+        private void CleanupUnactiveTargets()
         {
-            _axeTool.SetActive(false);
-            _crutchTool.SetActive(false);
-            _animator.StopAttack();
-        }       
-    }
-
-    private void ChoiceInstrument(IslandTypes resourceType)
-    {
-        switch (resourceType)
-        {
-            case IslandTypes.Wood:
-                _axeTool.SetActive(true);
-                break;
-            case IslandTypes.Stone:
-                _crutchTool.SetActive(true);
-                break;
-            case IslandTypes.Crystal:
-                _crutchTool.SetActive(true);
-                break;
-            default:
-                break;
+            for (int i = _unactiveTargets.Count - 1; i >= 0; i--)
+            {
+                _activeTargets.Remove(_unactiveTargets[i]);
+                _unactiveTargets.RemoveAt(i);
+            }
+            if (_activeTargets.Count == 0)
+            {
+                _axeTool.SetActive(false);
+                _crutchTool.SetActive(false);
+                _animator.StopAttack();
+            }
         }
-    }
 
-    public void AddTarget(ResourceOnIsland target, IslandTypes resourceType)
-    {
-        ChoiceInstrument(resourceType);
-        if(!_targetsToAttack.Contains(target))
+
+        public void AddTarget(ResourceDeposits target, ResourceType resourceType)
         {
-            _targetsToAttack.Add(target);
+            PickInstrument(resourceType);
+            if (!_activeTargets.Contains(target))
+            {
+                _activeTargets.Add(target);
+            }
+            _animator.StartAttack(Attack);
         }
-        _animator.StartAttack(Attack);
-    }
 
-    public void AddTargetToRemove(ResourceOnIsland target)
-    {
-        _targetsToRemove.Add(target);
-    }
+        public void AddTargetToRemove(ResourceDeposits target)
+        {
+            _unactiveTargets.Add(target);
+        }
 
-    public void TakeResourse(IslandTypes resourse)
-    {
-        _resourceContorller.AddResourse(resourse);
-    }
+        public void TakeResource(ResourceType resource)
+        {
+            _resourceContorller.AddResourse(resource);
+        }
+        public bool ExchangeResource(ResourceType resource, int price)
+        {
+            return _resourceContorller.ExchangeResource(resource, price);
+        }
 
-    public bool BuildIsland(ResourceType type)
-    {
-        return _resourceContorller.WasteResourse(type);
+        public bool BuildIsland(ResourceType type)
+        {
+            return _resourceContorller.WasteResourse(type);
+        }
     }
 }

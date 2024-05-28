@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Data;
@@ -11,6 +10,7 @@ namespace IslandLogic
 
         private void Awake()
         {
+            _islandToActivate[0].gameObject.SetActive(true);
             string lastBuiltIslandName = DataController.GetLastBuiltIslandName();
             if (lastBuiltIslandName != null)
             {

@@ -1,8 +1,7 @@
-﻿using ResourceLogic;
-namespace ObjectPool
+﻿namespace ObjectPool
 {
     public interface IPooled
     {
-        ResourceType Type { get; }
+        ObjectPooler.ObjectInfo.ObjectTypes Type { get; }
     }
 }

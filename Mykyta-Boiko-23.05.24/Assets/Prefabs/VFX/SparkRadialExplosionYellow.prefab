@@ -19359,6 +19359,7 @@ GameObject:
   - component: {fileID: 2945285902441768370}
   - component: {fileID: 2945285902427567874}
   - component: {fileID: 2945285902428508244}
+  - component: {fileID: 2228510651665994413}
   m_Layer: 0
   m_Name: SparkRadialExplosionYellow
   m_TagString: Untagged
@@ -24209,6 +24210,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2228510651665994413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2945285902442068726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd291a1868665b40b09a7a2996b4058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 4
+  _stopAction: 1
 --- !u!1 &3050931730898698360
 GameObject:
   m_ObjectHideFlags: 0
